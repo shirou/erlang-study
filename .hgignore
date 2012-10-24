@@ -1,0 +1,9 @@
+syntax: glob
+*~
+#*
+.git
+*.beam
+*.eunit
+*.dump
+
+
