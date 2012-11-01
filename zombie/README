@@ -1,0 +1,82 @@
+ゾンビの群れをfighterが倒す、プロセスの練習
+
+1> c(fighter).
+{ok,fighter}
+2> c(zombie). 
+{ok,zombie}
+3> ZZZ = zombie:summon_swarm().   %% ゾンビの群れ召喚(親プロセス)
+<0.43.0>
+4> ZZZ ! {'Summon', 100}.         %% ゾンビ召喚
+{'Summon',100}
+5> ZZZ ! 'Count'.                 %% 数を数える
+'Count'
+Count 100 
+6> fighter:attack(ZZZ).           %% fighterが攻撃
+attacked
+'Attack'
+respawn   %% 再生…
+.7> fighter:attack(ZZZ).           %% fighterが攻撃
+attacked
+'Attack'
+respawn  %% 再生…
+.8> fighter:attack(ZZZ).           %% fighterが攻撃
+attacked
+'Attack'
+respawn  %% 再生…
+.9> fighter:attack(ZZZ).           %% fighterが攻撃
+attacked
+'Attack'
+respawn
+.10> fighter:genocide(ZZZ, 10).    %% fighterが10回攻撃
+attacked
+ok
+respawn
+.attacked
+respawn
+attacked
+respawn
+..attacked
+respawn
+.attacked
+respawn
+.attacked
+respawn
+.attacked
+respawn
+attacked
+respawn
+.attacked
+respawn
+.attacked
+.respawn
+.respawn
+.11> ZZZ ! 'Count'.             %% 変わってない…
+Count 100
+'Count'
+12> fighter:silver(ZZZ).       %% 銀の弾丸で攻撃
+'Silver'
+attacked by Silver Bullet
+.13> ZZZ ! 'Count'.    %% 減った
+Count 99
+'Count'
+14> fighter:silver(ZZZ).
+attacked by Silver Bullet
+'Silver'
+.15> ZZZ ! 'Count'.
+Count 98
+'Count'
+16> fighter:silver_genocide(ZZZ, 100).   %% 銀の弾丸で攻撃しまくり
+attacked by Silver Bullet
+attacked by Silver Bullet
+.attacked by Silver Bullet
+.attacked by Silver Bullet
+
+attacked by Silver Bullet
+attacked by Silver Bullet
+attacked by Silver Bullet
+attacked by Silver Bullet
+attacked by Silver Bullet
+attacked by Silver Bullet
+attacked by Silver Bullet
+YOU WIN                                %% 0になったので勝利
+..................................................................... 
