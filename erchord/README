@@ -1,0 +1,74 @@
+chordのerlang実装。
+
+KVSとして動作
+
+nodeの動作
+
+- put
+
+- get
+
+- 
+
+
+経路方は SuccessorOnly 。Finger Tableなどはなし。
+
+
+
+
+
+
+--------------------
+
+
+Node Sequence
+----------------------------
+
+
+Join
+++++++++++++++
+
+{
+  NewNode --> N1[diagonal , label="{Join, NewNode}"]; 
+  N1 -> N2[diagonal , label="{Join, NewNode}"];
+  NewNode <- N2[diagonal , label="{SetSuccessor, NewNode, S2}"];
+}
+
+N1はNode 1、N2はNode2、S2はN2のSuccessorの意味。
+
+Stabilize
++++++++++++++++
+
+1. 正常時
+
+   S1のPredessesorがN1の場合
+
+   {
+     N1 --> S1[diagonal, label="{stabilize}"]; 
+     N1 <-- S1[diagonal, label="{stabilize_reply, x}"];
+   }
+
+   x == N1の場合、これで終了
+
+2. Join直後
+
+   S1のPredessesorがN1ではない場合
+
+   {
+     N1 --> S1[diagonal , label="{stabilize}"]; 
+     N1 <-- S1[diagonal, label="{stabilize_reply, x}", ];
+
+     === if x in (N1, S1] ===
+     N1 -> X[diagonal, label="{notify, N1}"]; // set predesessor 
+     N1 <-- X[diagonal, label="{ack}"];
+   }
+
+
+参考文献
+--------------
+
+
+- Stoica, Ion et al. (2001). "Chord: A Scalable Peer-to-peer Lookup Service for Internet Applications". Proceedings of SIGCOMM'01 (ACM Press New York, NY, USA).
+- http://en.wikipedia.org/wiki/Chord_(peer-to-peer)
+- http://www.slideshare.net/did2/chorddht
+- https://seattle.cs.washington.edu/wiki/EducationalAssignments/Chord
