@@ -5,5 +5,7 @@ syntax: glob
 *.beam
 *.eunit
 *.dump
+*.swp
+logs
 
 
